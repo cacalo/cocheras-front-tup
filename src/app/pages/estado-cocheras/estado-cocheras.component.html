@@ -1,3 +1,38 @@
-<p>estado-cocheras works!</p>
 <a [routerLink]="['/login']" >Cerrar sesión</a>
-<h1>Rojo</h1>
+<h1> {{ titulo }} </h1>
+
+@if (cocheras.length !==0) {
+    <table>
+        <thead>
+        <td>Numero</td>
+        <td>Disponibilidad</td>
+        <td>Ingreso</td>
+        <td>Acciones</td>
+    </thead>
+    <tbody>
+        @for (cochera of cocheras; track $index) {
+            <tr>
+                <td> {{ cochera.numero }} </td>
+                <td [ngClass]="{'disponible': cochera.disponible}" >{{ cochera.disponible ? 'Disponible' : 'Ocupado' }}</td>
+                <td>{{ cochera.ingreso }}</td>
+                <td> 
+                    @if(cochera.disponible){
+                        <button (click)="deshabilitarCochera($index)">Deshabilitar</button>
+                    } @else {
+                        <button (click)="habilitarCochera($index)">Habilitar</button>
+
+                    }
+                    <button (click)="borrarFila($index)">Borrar</button>
+                </td>
+            </tr>
+        } @empty {
+            <button (click)="agregarCochera()" class="boton-resaltado">Agrega una cochera</button>
+        }
+    </tbody>
+</table>
+} @else {
+    <button (click)="agregarCochera()" class="boton-resaltado">Agrega una cochera</button>
+}
+
+<button (click)="actualizarCocheras()" class="boton-resaltado">Borrar todo</button>
+<button (click)="agregarCochera()" class="boton-resaltado">+</button>
