@@ -1,10 +1,9 @@
 <a [routerLink]="['/login']" >Cerrar sesión</a>
-<h1> {{ titulo }} </h1>
 
-@if (cocheras.length !==0) {
+<main class="flex-column-center">
     <table>
         <thead>
-        <td>Numero</td>
+        <td>Nº</td>
         <td>Disponibilidad</td>
         <td>Ingreso</td>
         <td>Acciones</td>
@@ -13,26 +12,25 @@
         @for (cochera of cocheras; track $index) {
             <tr>
                 <td> {{ cochera.numero }} </td>
-                <td [ngClass]="{'disponible': cochera.disponible}" >{{ cochera.disponible ? 'Disponible' : 'Ocupado' }}</td>
+                <td>
+                    <span [ngClass]="{'disponible': cochera.disponible,'ocupado': !cochera.disponible}">{{ cochera.disponible ? 'Disponible' : 'Ocupado' }}</span>
+                </td>
                 <td>{{ cochera.ingreso }}</td>
-                <td> 
+                <td class="acciones-container"> 
                     @if(cochera.disponible){
-                        <button (click)="deshabilitarCochera($index)">Deshabilitar</button>
+                        <button (click)="deshabilitarCochera($index)"><img src="img/icons/prohibido.png" alt="Deshabilitar cochera"></button>
                     } @else {
-                        <button (click)="habilitarCochera($index)">Habilitar</button>
+                        <button (click)="habilitarCochera($index)"><img src="img/icons/ok.png" alt="Habilitar cochera"></button>
 
                     }
-                    <button (click)="borrarFila($index)">Borrar</button>
+                    <button (click)="borrarFila($index)"><img src="img/icons/contenedor-de-basura.png" alt="Eliminar cochera"></button>
                 </td>
             </tr>
-        } @empty {
-            <button (click)="agregarCochera()" class="boton-resaltado">Agrega una cochera</button>
         }
     </tbody>
 </table>
-} @else {
-    <button (click)="agregarCochera()" class="boton-resaltado">Agrega una cochera</button>
-}
 
-<button (click)="actualizarCocheras()" class="boton-resaltado">Borrar todo</button>
-<button (click)="agregarCochera()" class="boton-resaltado">+</button>
+
+<!-- <button (click)="actualizarCocheras()" class="boton-resaltado">Borrar todo</button> -->
+<button (click)="agregarCochera()" class="boton-resaltado" id="agregar-cochera">+</button>
+</main>

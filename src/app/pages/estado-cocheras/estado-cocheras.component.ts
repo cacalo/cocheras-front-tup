@@ -12,7 +12,6 @@ import { CommonModule } from '@angular/common';
 })
 export class EstadoCocherasComponent {
 
-  titulo:string = 'Estado cocheras';
   cocheras: Cochera[] = []
 
   actualizarCocheras(){

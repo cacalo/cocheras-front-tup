@@ -1,0 +1,50 @@
+@use "./colors.scss";
+
+table{
+  margin: 20px auto;
+  thead, tr {
+      display: grid;
+      grid-template-columns: 50px 1fr 1fr 1fr;
+      min-width: 600px;
+      justify-items: center;
+      align-items: center;
+      height: 50px;
+      border-bottom: 1px solid colors.$color-texto;
+  }
+  thead{
+    font-weight: bold;
+  }
+  tr:hover{
+    background-color: rgba(0, 0, 0, 0.1)
+  }
+  .acciones-container{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    button{
+      width: 50px;
+      display: grid;
+      align-items: center;
+      img{
+        width: 80%;
+        margin: auto;
+      }
+    }
+  }
+}
+
+.disponible{
+  background-color: colors.$color-exito;
+  padding: 5px 10px;
+  border-radius: 15px;
+  color: colors.$color-texto-invertido;
+  pointer-events: none;
+}
+
+.ocupado{
+  background-color: colors.$color-warn;
+  padding: 5px 10px;
+  border-radius: 15px;
+  color: colors.$color-texto-invertido;
+  pointer-events: none;
+}

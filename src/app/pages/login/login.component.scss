@@ -8,12 +8,12 @@ h1{
 
 main{
     display: grid;
-    grid-template-columns: 1fr 600px;
+    grid-template-columns: 1fr 1fr;
     height: 100svh;
 }
 
 #izquierda{
-    background-image: url("./../../../../public/img/car-park\ 1.png");
+    background-image: url("./../../../../public/img/car-park.png");
     background-size: cover;
     display: flex;
     justify-content: center;
@@ -26,7 +26,7 @@ main{
         right: 0;
         background-color: colors.$color-primario;
         opacity: 75%;
-        height: 100vh;
+        height: 100%;
     }
 }
 
@@ -48,8 +48,27 @@ form{
 input{
     border-bottom: 2px solid colors.$color-primario;
     font-size: 2rem;
+    text-align: center;
 }
 
 a{
     text-align: center;
+}
+
+
+@media (width < 820px) {
+    h1{
+        font-size: 50px;
+    }
+    main{
+        grid-template-columns: 1fr;
+        grid-template-rows: 200px auto;
+    }
+    #derecha{
+        margin-top: 1rem;
+        align-items: start;
+    }
+    form{
+        justify-content: space-between;
+    }
 }
