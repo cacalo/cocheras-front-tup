@@ -1,0 +1,6 @@
+@use './../../../../public/styles/colors.scss';
+
+.link-activo{
+    color: colors.$color-primario;
+    font-weight: bold;
+}

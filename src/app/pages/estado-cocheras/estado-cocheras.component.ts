@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Cochera } from '../../interfaces/cochera';
 import { CommonModule } from '@angular/common';
+import Swal from 'sweetalert2';
+import { DataCocherasService } from '../../services/data-cocheras.service';
 
 @Component({
   selector: 'app-estado-cocheras',
@@ -13,33 +15,46 @@ import { CommonModule } from '@angular/common';
 export class EstadoCocherasComponent {
 
   cocheras: Cochera[] = []
+  esAdmin = true;
 
-  actualizarCocheras(){
-    this.cocheras = []
+  dataCocherasService = inject(DataCocherasService)
+
+  constructor() {
+    this.cocheras = this.dataCocherasService.cocheras;
   }
 
-  ultimoNumero = this.cocheras[this.cocheras.length-1]?.numero || 0;
-  //ultimoNumero = this.cocheras.length === 0 ? 0 : this.cocheras[this.cocheras.length-1].numero;
   agregarCochera(){
-    this.cocheras.push({
-      numero: this.ultimoNumero + 1,
-      disponible: true,
-      ingreso: '-',
-      esGrande: true
-    })
-    this.ultimoNumero++;
+    this.dataCocherasService.agregarCochera()
   }
 
   borrarFila(index:number){
-    this.cocheras.splice(index,1);
+    this.dataCocherasService.borrarFila(index)
   }
 
   deshabilitarCochera(index:number){
-    this.cocheras[index].disponible = false;
+    this.dataCocherasService.deshabilitarCochera(index)
   }
 
   habilitarCochera(index:number){
-    this.cocheras[index].disponible = true;
+    this.dataCocherasService.habilitarCochera(index)
+  }
+
+  preguntarBorrarCochera(){
+    Swal.fire({
+      title: "Do you want to save the changes?",
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: "Save",
+      denyButtonText: `Don't save`
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+
+        Swal.fire("Saved!", "", "success");
+      } else if (result.isDenied) {
+        Swal.fire("Changes are not saved", "", "info");
+      }
+    });
   }
 
 }

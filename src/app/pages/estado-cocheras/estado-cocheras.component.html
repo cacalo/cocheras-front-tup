@@ -9,7 +9,7 @@
         <td>Acciones</td>
     </thead>
     <tbody>
-        @for (cochera of cocheras; track $index) {
+        @for (cochera of dataCocherasService.cocheras; track $index) {
             <tr>
                 <td> {{ cochera.numero }} </td>
                 <td>
@@ -23,14 +23,16 @@
                         <button (click)="habilitarCochera($index)"><img src="img/icons/ok.png" alt="Habilitar cochera"></button>
 
                     }
-                    <button (click)="borrarFila($index)"><img src="img/icons/contenedor-de-basura.png" alt="Eliminar cochera"></button>
+                    @if(esAdmin){   
+                        <button (click)="preguntarBorrarCochera()"><img src="img/icons/contenedor-de-basura.png" alt="Eliminar cochera"></button>
+                    }
                 </td>
             </tr>
         }
     </tbody>
 </table>
 
-
-<!-- <button (click)="actualizarCocheras()" class="boton-resaltado">Borrar todo</button> -->
-<button (click)="agregarCochera()" class="boton-resaltado" id="agregar-cochera">+</button>
+@if(esAdmin){
+    <button (click)="agregarCochera()" class="boton-resaltado" id="agregar-cochera">+</button>
+}
 </main>

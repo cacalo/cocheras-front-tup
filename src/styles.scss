@@ -57,6 +57,11 @@ button{
     cursor: pointer;
 }
 
+a, a:visited{
+	color: colors.$color-texto;
+	text-decoration: none;
+}
+
 .flex-apart{
     display: flex;
     justify-content: space-between;
