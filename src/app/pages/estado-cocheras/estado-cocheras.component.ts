@@ -4,6 +4,7 @@ import { Cochera } from '../../interfaces/cochera';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
 import { DataCocherasService } from '../../services/data-cocheras.service';
+import { DataAuthService } from '../../services/data-auth.service';
 
 @Component({
   selector: 'app-estado-cocheras',
@@ -13,15 +14,12 @@ import { DataCocherasService } from '../../services/data-cocheras.service';
   styleUrl: './estado-cocheras.component.scss'
 })
 export class EstadoCocherasComponent {
+  authService = inject(DataAuthService);
 
-  cocheras: Cochera[] = []
   esAdmin = true;
 
   dataCocherasService = inject(DataCocherasService)
 
-  constructor() {
-    this.cocheras = this.dataCocherasService.cocheras;
-  }
 
   agregarCochera(){
     this.dataCocherasService.agregarCochera()
@@ -56,5 +54,6 @@ export class EstadoCocherasComponent {
       }
     });
   }
+
 
 }

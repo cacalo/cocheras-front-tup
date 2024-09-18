@@ -11,13 +11,13 @@
     <tbody>
         @for (cochera of dataCocherasService.cocheras; track $index) {
             <tr>
-                <td> {{ cochera.numero }} </td>
+                <td> {{ cochera.id }} </td>
                 <td>
-                    <span [ngClass]="{'disponible': cochera.disponible,'ocupado': !cochera.disponible}">{{ cochera.disponible ? 'Disponible' : 'Ocupado' }}</span>
+                    <span [ngClass]="{'disponible': !cochera.deshabilitada,'ocupado': cochera.deshabilitada}">{{ !cochera.deshabilitada ? 'Disponible' : 'Ocupado' }}</span>
                 </td>
-                <td>{{ cochera.ingreso }}</td>
+                <td>{{ cochera.descripcion }}</td>
                 <td class="acciones-container"> 
-                    @if(cochera.disponible){
+                    @if(!cochera.deshabilitada){
                         <button (click)="deshabilitarCochera($index)"><img src="img/icons/prohibido.png" alt="Deshabilitar cochera"></button>
                     } @else {
                         <button (click)="habilitarCochera($index)"><img src="img/icons/ok.png" alt="Habilitar cochera"></button>

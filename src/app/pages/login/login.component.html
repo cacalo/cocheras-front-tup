@@ -6,8 +6,10 @@
         <form>
             <input type="text" id="usuario" placeholder="Usuario">
             <input type="password" id="password" placeholder="Contraseña">
-            <!-- Lo hice botón por algo que pasará más adelante -->
-            <button class="boton-resaltado" [routerLink]="['/estado-cocheras']">Iniciar sesión</button>
+            <button class="boton-resaltado" type="button" (click)="login()">Iniciar sesión</button>
+            @if(errorLogin) {
+                <p>Error en login</p>
+            }
         </form>
         <a [routerLink]="['/registro']">Registrarse</a>
     </div>
