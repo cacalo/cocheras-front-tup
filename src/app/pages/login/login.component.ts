@@ -2,11 +2,12 @@ import { Component, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { Login, ResLogin } from '../../interfaces/login';
 import { DataAuthService } from '../../services/data-auth.service';
+import { FormsModule, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule, FormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
@@ -14,12 +15,18 @@ export class LoginComponent {
 
   authService = inject(DataAuthService);
 
-  loginData:Login = {
-    username: 'admin',
-    password: 'admin'
+  router = inject(Router);
+
+  errorLogin = false;
+  async login(loginForm: NgForm){
+    const {usuario, password} = loginForm.value;
+    const loginData: Login = {username: usuario, password}
+    const res = await this.authService.login(loginData)
+    if(res?.status === "ok") this.router.navigate(['/estado-cocheras']);
+    else this.errorLogin = true;
   }
 
-  router = inject(Router);
+}
 
   //Login con .then
   // login(){
@@ -38,11 +45,3 @@ export class LoginComponent {
   //   })
   //   console.log('Despues del fetch')
   // }
-  errorLogin = false;
-  async login(){
-    const res = await this.authService.login(this.loginData)
-    if(res?.status === "ok") this.router.navigate(['/estado-cocheras']);
-    else this.errorLogin = true;
-  }
-
-}

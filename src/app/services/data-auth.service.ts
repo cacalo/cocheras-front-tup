@@ -21,11 +21,13 @@ export class DataAuthService {
     })
     if(res.status !== 200) return;
     const resJson:ResLogin = await res.json();
+    console.log(res)
+    console.log(resJson)
     if(!resJson.token) return;
     this.usuario = {
       username : loginData.username,
       token: resJson.token,
-      esAdmin : false
+      esAdmin : true
     }
     return resJson;
   }

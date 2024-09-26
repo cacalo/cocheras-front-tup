@@ -3,10 +3,10 @@
         <h1>PARKING APP</h1>
     </div>
     <div id="derecha">
-        <form>
-            <input type="text" id="usuario" placeholder="Usuario">
-            <input type="password" id="password" placeholder="Contraseña">
-            <button class="boton-resaltado" type="button" (click)="login()">Iniciar sesión</button>
+        <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+            <input type="text" id="usuario" placeholder="Usuario" name="usuario" ngModel required>
+            <input type="password" id="password" placeholder="Contraseña" name="password" ngModel required>
+            <button [disabled]="loginForm.invalid" class="boton-resaltado" type="submit">Iniciar sesión</button>
             @if(errorLogin) {
                 <p>Error en login</p>
             }
