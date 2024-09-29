@@ -2,9 +2,9 @@
     <div id="izquierda">
         <h1>PARKING APP</h1>
     </div>
-    <div id="derecha">
+        <div id="derecha">
         <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
-            <input type="text" id="usuario" placeholder="Usuario" name="usuario" ngModel required>
+            <input type="text" id="username" placeholder="Usuario" name="username" ngModel required>
             <input type="password" id="password" placeholder="Contraseña" name="password" ngModel required>
             <button [disabled]="loginForm.invalid" class="boton-resaltado" type="submit">Iniciar sesión</button>
             @if(errorLogin) {
