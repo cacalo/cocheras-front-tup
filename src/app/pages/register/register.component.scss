@@ -1,0 +1,89 @@
+@use "./../../../../public/styles/colors.scss";
+
+h1{
+    font-size: 100px;
+    color: white;
+    z-index: 1;
+}
+
+main{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 100svh;
+}
+
+#izquierda{
+    background-image: url("./../../../../public/img/car-park.jpg");
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    &::after{
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        background-color: colors.$color-primario;
+        opacity: 75%;
+        height: 100%;
+    }
+}
+
+#derecha{
+    display: grid;
+    grid-template-rows: 1fr 50px;
+    align-items: center;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    button{
+        margin-top: 10px;
+    }
+}
+
+input{
+    border-bottom: 2px solid colors.$color-primario;
+    font-size: 2rem;
+    text-align: center;
+}
+
+a{
+    text-align: center;
+}
+
+
+@media (width < 820px) {
+    h1{
+        font-size: 50px;
+    }
+    main{
+        grid-template-columns: 1fr;
+        grid-template-rows: 200px auto;
+    }
+    #derecha{
+        margin-top: 1rem;
+        align-items: start;
+    }
+    form{
+        justify-content: space-between;
+    }
+}
+
+.boton-resaltado {
+    background-color: blue; /* Color cuando está habilitado */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:disabled {
+        background-color: lightgray; /* Color cuando está deshabilitado */
+        color: darkgray; /* Color del texto cuando está deshabilitado */
+        cursor: not-allowed;
+    }
+}

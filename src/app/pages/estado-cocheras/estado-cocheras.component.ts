@@ -21,12 +21,12 @@ export class EstadoCocherasComponent {
   dataCocherasService = inject(DataCocherasService)
 
 
-  agregarCochera(){
-    this.dataCocherasService.agregarCochera()
+  async agregarCochera(){
+    await this.dataCocherasService.agregarCochera()
   }
 
-  borrarFila(index:number){
-    this.dataCocherasService.borrarFila(index)
+  async borrarFila(index:number){
+    await this.dataCocherasService.borrarFila(index)
   }
 
   deshabilitarCochera(index:number){
@@ -37,17 +37,17 @@ export class EstadoCocherasComponent {
     this.dataCocherasService.habilitarCochera(index)
   }
 
-  preguntarBorrarCochera(){
+  preguntarBorrarCochera(cocheraId: number){
     Swal.fire({
       title: "Do you want to save the changes?",
       showDenyButton: true,
       showCancelButton: true,
       confirmButtonText: "Save",
       denyButtonText: `Don't save`
-    }).then((result) => {
+    }).then(async (result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-
+        await this.borrarFila(cocheraId)
         Swal.fire("Saved!", "", "success");
       } else if (result.isDenied) {
         Swal.fire("Changes are not saved", "", "info");

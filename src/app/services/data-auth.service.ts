@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Usuario } from '../interfaces/usuario';
 import { Login, ResLogin } from '../interfaces/login';
+import { Register } from '../interfaces/register';
 
 @Injectable({
   providedIn: 'root'
@@ -47,5 +48,19 @@ export class DataAuthService {
     this.usuario.esAdmin = userDetailsResJson.esAdmin;
 
     return userDetailsRes;
+  }
+
+  async register(registerData: Register) {
+    const res = await fetch('http://localhost:4000/register', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(registerData)
+    });
+
+    if (res.status !== 201) return;
+    console.log(res)
+    return res;
   }
 }

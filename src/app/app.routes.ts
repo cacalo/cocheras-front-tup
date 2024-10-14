@@ -7,6 +7,7 @@ import { ReportesComponent } from './pages/reportes/reportes.component';
 import { soloPublicoGuard } from './guards/solo-publico.guard';
 import { soloAdminGuard } from './guards/solo-admin.guard';
 import { soloLogueadoGuard } from './guards/solo-logueado.guard';
+import { RegisterComponent } from './pages/register/register.component';
 
 export const routes: Routes = [
     {
@@ -28,6 +29,11 @@ export const routes: Routes = [
     {
         path: "login",
         component: LoginComponent,
+        canActivate: [soloPublicoGuard]
+    },
+    {
+        path: "register",
+        component: RegisterComponent,
         canActivate: [soloPublicoGuard]
     },
     // {
