@@ -1,1 +1,30 @@
-<p>reportes works!</p>
+<main class="flex-column-center">
+    <table>
+        <thead>
+            <td>Nº</td>
+            <td>Fecha</td>
+            <td>Cobrado</td>
+        </thead>
+        <tbody>
+            @for (transaccion of this.dataEstacionamientoService.ultimasTransacciones; track $index) {
+                <tr>
+                    <td> {{ $index + 1 }} </td>
+                    <td>
+                        @if (transaccion.horaIngreso) {
+                            {{ transaccion.horaEgreso | date:'dd/MM/yyyy' }}
+                        } @else {
+                            -
+                        }
+                    </td>
+                    <td>
+                        @if (transaccion.costo) {
+                            {{ transaccion.costo | currency }}
+                        } @else {
+                            -
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</main>

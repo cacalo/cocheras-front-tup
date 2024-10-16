@@ -14,7 +14,7 @@
                 <td> {{ cochera.id }} </td>
                 <td>
                     @if (!cochera.estacionamiento?.horaEgreso && cochera.estacionamiento?.horaIngreso) {
-                        <button (click)="cerrarEstacionamiento()">
+                        <button (click)="cerrarEstacionamiento(cochera)">
                             {{ cochera.estacionamiento?.patente }}
                         </button>
                     } @else if (cochera.estacionamiento?.horaEgreso) {

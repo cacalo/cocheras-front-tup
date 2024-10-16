@@ -113,4 +113,23 @@ export class DataCocherasService {
       this.loadData()
     };
   }  
+
+  async cerrarEstacionamiento(patente: string, idUsuarioEgreso: string) {
+    const body = {patente, idUsuarioEgreso};
+    const res = await fetch('http://localhost:4000/estacionamientos/cerrar',{
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization:'Bearer '+this.authService.usuario?.token
+      },
+      body: JSON.stringify(body)
+    })
+    if(res.status !== 200) {
+      console.log("Error en el cerrado del estacionamiento")
+    } else {
+      console.log("Cerrado del estacionamiento exitoso")
+      console.log(res)
+      this.loadData();
+    };    
+  }
 }
