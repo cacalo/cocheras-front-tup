@@ -33,6 +33,8 @@ export class DataAuthService {
         esAdmin: false
     };
 
+    localStorage.setItem("authToken", resJson.token);
+
     const userDetailsRes = await fetch(`http://localhost:4000/usuarios/${encodeURIComponent(loginData.username)}`, {
         method: 'GET',
         headers: {
@@ -62,5 +64,13 @@ export class DataAuthService {
     if (res.status !== 201) return;
     console.log(res)
     return res;
+  }
+
+  getToken() {
+    return localStorage.getItem("authToken");
+  }
+
+  clearToken() {
+    localStorage.removeItem("authToken")
   }
 }

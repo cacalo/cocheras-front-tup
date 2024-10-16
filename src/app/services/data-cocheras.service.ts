@@ -35,7 +35,7 @@ export class DataCocherasService {
   async getEstacionamientos(){
     const res = await fetch('http://localhost:4000/estacionamientos',{
       headers: {
-        authorization:'Bearer '+this.authService.usuario?.token
+        authorization:'Bearer '+ localStorage.getItem("authToken")
       },
     })
     if(res.status !== 200) return;
@@ -96,5 +96,21 @@ export class DataCocherasService {
     this.cocheras[index].deshabilitada = 0;
   }
 
-  
+  async abrirEstacionamiento(patente: string, idUsuarioIngreso: string, idCochera: number) {
+    const body = {patente, idUsuarioIngreso, idCochera};
+    const res = await fetch('http://localhost:4000/estacionamientos/abrir',{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization:'Bearer '+ localStorage.getItem("authToken")
+      },
+      body: JSON.stringify(body)
+    })
+    if(res.status !== 200) {
+      console.log("Error en abrir estacionamiento")
+    } else {
+      console.log("Creacion de estacionamiento exitoso")
+      this.loadData()
+    };
+  }  
 }

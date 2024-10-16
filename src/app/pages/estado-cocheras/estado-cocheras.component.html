@@ -13,7 +13,19 @@
             <tr>
                 <td> {{ cochera.id }} </td>
                 <td>
-                    <span [ngClass]="{'disponible': !cochera.deshabilitada,'ocupado': cochera.deshabilitada}">{{ !cochera.deshabilitada ? 'Disponible' : 'Ocupado' }}</span>
+                    @if (!cochera.estacionamiento?.horaEgreso && cochera.estacionamiento?.horaIngreso) {
+                        <button (click)="cerrarEstacionamiento()">
+                            {{ cochera.estacionamiento?.patente }}
+                        </button>
+                    } @else if (cochera.estacionamiento?.horaEgreso) {
+                        <button (click)="abrirEstacionamiento(cochera.id)">
+                            Desocupado
+                        </button>
+                    } @else {
+                        <button (click)="abrirEstacionamiento(cochera.id)">
+                            Disponible
+                        </button>
+                    }
                 </td>
                 <td>{{ cochera.descripcion }}</td>
                 <td class="acciones-container"> 

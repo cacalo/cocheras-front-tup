@@ -55,5 +55,31 @@ export class EstadoCocherasComponent {
     });
   }
 
+  abrirEstacionamiento(idCochera: number) {
+    const idUsuarioIngreso = "ADMIN"
+    Swal.fire({
+      title: "Abrir Cochera",
+      html: `<input type="text" id="patente" class="swal2-input" placeholder="Ingrese patente">`,
+      showCancelButton: true,
+      confirmButtonText: "Abrir",
+      cancelButtonText: "Cancelar",
+      preConfirm: () => {
+        const patenteInput = document.getElementById("patente") as HTMLInputElement
+        if (!patenteInput || !patenteInput.value) {
+          Swal.showValidationMessage("Por favor, ingrese una patente")
+          return false;
+        }
+        return { patente: patenteInput.value };
+      }
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const { patente } = result.value;
+        await this.dataCocherasService.abrirEstacionamiento(patente, idUsuarioIngreso, idCochera);
+      }
+    })
+  }
 
+  cerrarEstacionamiento() {
+
+  }
 }
