@@ -23,36 +23,80 @@ export class EstadoCocherasComponent {
   dataCocherasService = inject(DataCocherasService)
 
 
-  async agregarCochera(){
-    await this.dataCocherasService.agregarCochera()
-  }
-
-  async borrarFila(index:number){
-    await this.dataCocherasService.borrarFila(index)
-  }
-
-  deshabilitarCochera(index:number){
-    this.dataCocherasService.deshabilitarCochera(index)
-  }
-
-  habilitarCochera(index:number){
-    this.dataCocherasService.habilitarCochera(index)
+  preguntarAgregarCochera(){
+    Swal.fire({
+      title: "Nueva cochera?",
+      showCancelButton: true,
+      confirmButtonText: "Agregar",
+      denyButtonText: `Cancelar`,
+      input: "text",
+      inputLabel: "Nombre cochera"
+    }).then(async (result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        this.dataCocherasService.agregarCochera(result.value)
+        // await this.borrarFila(cocheraId)
+        // Swal.fire("Saved!", "", "success");
+      } else if (result.isDenied) {
+        // Swal.fire("Changes are not saved", "", "info");
+      }
+    });
   }
 
   preguntarBorrarCochera(cocheraId: number){
     Swal.fire({
-      title: "Do you want to save the changes?",
-      showDenyButton: true,
+      title: "Borrar cochera?",
       showCancelButton: true,
-      confirmButtonText: "Save",
-      denyButtonText: `Don't save`
-    }).then(async (result) => {
+      confirmButtonText: "Eliminar",
+      denyButtonText: `Cancelar`,
+      inputValidator: (value)=> {
+        console.warn('revisando value',value)
+        if(!value) return 'Falta escribir un identificador a la cochera';
+        for (let i = 0; i < this.dataCocherasService.cocheras.length; i++) {
+          const element = this.dataCocherasService.cocheras[i];
+          if(element.descripcion === value) return 'Ese identificador de cochera ya existe';
+        }
+        return;
+      }
+    }).then(async (result) => { 
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        await this.borrarFila(cocheraId)
+        await this.dataCocherasService.borrarFila(cocheraId)
         Swal.fire("Saved!", "", "success");
       } else if (result.isDenied) {
         Swal.fire("Changes are not saved", "", "info");
+      }
+    });
+  }
+
+  preguntarDeshabilitarCochera(cocheraId: number){
+    Swal.fire({
+      title: "Deshabilitar cochera?",
+      showCancelButton: true,
+      confirmButtonText: "Deshabilitar",
+      denyButtonText: `Cancelar`
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await this.dataCocherasService.deshabilitarCochera(cocheraId)
+        // Swal.fire("Saved!", "", "success");
+      } else if (result.isDenied) {
+        // Swal.fire("Changes are not saved", "", "info");
+      }
+    });
+  }
+
+  preguntarHabilitarCochera(cocheraId: number){
+    Swal.fire({
+      title: "Hablitar cochera?",
+      showCancelButton: true,
+      confirmButtonText: "Habilitar",
+      denyButtonText: `Cancelar`
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await this.dataCocherasService.habilitarCochera(cocheraId)
+        // Swal.fire("Saved!", "", "success");
+      } else if (result.isDenied) {
+        // Swal.fire("Changes are not saved", "", "info");
       }
     });
   }

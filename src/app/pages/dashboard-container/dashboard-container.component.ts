@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { Router, RouterModule, RouterOutlet } from '@angular/router';
+import { DataAuthService } from '../../services/data-auth.service';
 
 @Component({
   selector: 'app-dashboard-container',
@@ -10,4 +11,11 @@ import { RouterModule, RouterOutlet } from '@angular/router';
 })
 export class DashboardContainerComponent {
   esAdmin = true;
+  authService = inject(DataAuthService);
+  router = inject(Router);
+
+  cerrarSesion(){
+    this.authService.clearToken();
+    this.router.navigate(['/login']);
+  }
 }

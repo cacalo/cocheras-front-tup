@@ -19,10 +19,6 @@
                         <button (click)="cerrarEstacionamiento(cochera)">
                             {{ cochera.estacionamiento?.patente }}
                         </button>
-                    } @else if (cochera.estacionamiento?.horaEgreso) {
-                        <button class="disponible" (click)="abrirEstacionamiento(cochera.id)">
-                            Desocupado
-                        </button>
                     } @else {
                         <button class="disponible" (click)="abrirEstacionamiento(cochera.id)">
                             Disponible
@@ -31,14 +27,16 @@
                 </td>
                 <td>{{ cochera.descripcion }}</td>
                 <td class="acciones-container"> 
-                    @if(!cochera.deshabilitada){
-                        <button (click)="deshabilitarCochera($index)"><img src="img/icons/prohibido.png" alt="Deshabilitar cochera"></button>
-                    } @else {
-                        <button (click)="habilitarCochera($index)"><img src="img/icons/ok.png" alt="Habilitar cochera"></button>
-
-                    }
-                    @if(esAdmin){   
-                        <button (click)="preguntarBorrarCochera(cochera.id)"><img src="img/icons/contenedor-de-basura.png" alt="Eliminar cochera"></button>
+                    @if(!cochera.estacionamiento?.patente){
+                        @if(!cochera.deshabilitada){
+                            <button (click)="preguntarDeshabilitarCochera(cochera.id)"><img src="img/icons/prohibido.png" alt="Deshabilitar cochera"></button>
+                        } @else {
+                            <button (click)="preguntarHabilitarCochera(cochera.id)"><img src="img/icons/ok.png" alt="Habilitar cochera"></button>
+                            
+                        }
+                        @if(esAdmin){   
+                            <button (click)="preguntarBorrarCochera(cochera.id)"><img src="img/icons/contenedor-de-basura.png" alt="Eliminar cochera"></button>
+                        }
                     }
                 </td>
             </tr>
@@ -47,6 +45,6 @@
 </table>
 
 @if(esAdmin){
-    <button (click)="agregarCochera()" class="boton-resaltado" id="agregar-cochera">+</button>
+    <button (click)="preguntarAgregarCochera()" class="boton-resaltado" id="agregar-cochera">+</button>
 }
 </main>

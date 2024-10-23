@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { Cochera } from '../interfaces/cochera';
 import { DataAuthService } from './data-auth.service';
 import { Estacionamiento } from '../interfaces/estacionamiento';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -53,9 +54,9 @@ export class DataCocherasService {
   ultimoNumero = this.cocheras[this.cocheras.length-1]?.id || 0;
   //ultimoNumero = this.cocheras.length === 0 ? 0 : this.cocheras[this.cocheras.length-1].numero;
   
-  async agregarCochera(){
-    const cochera = {"descripcion" : "Agregada por WebApi"};
-    const res = await fetch('http://localhost:4000/cocheras',{
+  async agregarCochera(nombreCochera:string){
+    const cochera = {"descripcion" : nombreCochera};
+    const res = await fetch(environment.API_URL+'cocheras',{
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -72,7 +73,7 @@ export class DataCocherasService {
   }
 
   async borrarFila(index:number){
-    const res = await fetch(`http://localhost:4000/cocheras/${index}`,{
+    const res = await fetch(environment.API_URL+`cocheras/${index}`,{
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -87,17 +88,41 @@ export class DataCocherasService {
     }
   }
 
-  deshabilitarCochera(index:number){
-    this.cocheras[index].deshabilitada = 1;
+  async deshabilitarCochera(idCochera:number){
+    const res = await fetch(environment.API_URL+'cocheras/'+idCochera+'/disable',{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization:'Bearer '+ localStorage.getItem("authToken")
+      },
+    })
+    if(res.status === 200) {
+      console.log("Cochera deshabilitada")
+      this.loadData()
+    } else {
+      console.warn("Error deshabilitando cochera")
+    };
   }
 
-  habilitarCochera(index:number){
-    this.cocheras[index].deshabilitada = 0;
+  async habilitarCochera(idCochera:number){
+    const res = await fetch(environment.API_URL+'cocheras/'+idCochera+'/enable',{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization:'Bearer '+ localStorage.getItem("authToken")
+      },
+    })
+    if(res.status === 200) {
+      console.log("Cochera hablitada")
+      this.loadData()
+    } else {
+      console.warn("Error habilitando cochera")
+    };
   }
 
   async abrirEstacionamiento(patente: string, idUsuarioIngreso: string, idCochera: number) {
     const body = {patente, idUsuarioIngreso, idCochera};
-    const res = await fetch('http://localhost:4000/estacionamientos/abrir',{
+    const res = await fetch(environment.API_URL+'estacionamientos/abrir',{
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -115,7 +140,7 @@ export class DataCocherasService {
 
   async cerrarEstacionamiento(patente: string, idUsuarioEgreso: string) {
     const body = {patente, idUsuarioEgreso};
-    const res = await fetch('http://localhost:4000/estacionamientos/cerrar',{
+    const res = await fetch(environment.API_URL+'estacionamientos/cerrar',{
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',

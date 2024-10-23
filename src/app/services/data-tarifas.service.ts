@@ -1,6 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { Tarifa } from '../interfaces/tarifa';
 import { DataAuthService } from './data-auth.service';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class DataTarifasService {
   }
 
   async getTarifas(){
-    const res = await fetch('http://localhost:4000/tarifas',{
+    const res = await fetch(environment.API_URL+'tarifas',{
       headers: {
         authorization:'Bearer '+localStorage.getItem("authToken")
       },
