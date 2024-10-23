@@ -6,7 +6,13 @@
             <a [routerLink]="['/reportes']" routerLinkActive="link-activo" >Reportes</a>
             <a [routerLink]="['/precios']" routerLinkActive="link-activo" >Precios</a>
         }
-        <a>Usuario</a>
+        <div class="usuario">
+            <a>Usuario</a>
+            <div class="dropdown">
+                <a [routerLink]="['/login']">Cerrar sesión</a>
+            </div>
+        </div>
+        
     </nav>
 </header>
 <router-outlet />

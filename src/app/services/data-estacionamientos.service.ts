@@ -27,6 +27,5 @@ export class DataEstacionamientosService {
         .slice(0, cantidad);
 
     this.ultimasTransacciones = ultimasTransacciones;
-    console.log(this.ultimasTransacciones)
   }
 }

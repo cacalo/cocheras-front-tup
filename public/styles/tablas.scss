@@ -38,6 +38,13 @@ table{
   padding: 5px 10px;
   border-radius: 15px;
   color: colors.$color-texto-invertido;
+}
+
+.deshabilitada{
+  background-color: gray;
+  padding: 5px 10px;
+  border-radius: 15px;
+  color: colors.$color-texto-invertido;
   pointer-events: none;
 }
 

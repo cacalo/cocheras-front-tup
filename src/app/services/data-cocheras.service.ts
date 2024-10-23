@@ -24,7 +24,7 @@ export class DataCocherasService {
   async getCocheras(){
     const res = await fetch('http://localhost:4000/cocheras',{
       headers: {
-        authorization:'Bearer '+this.authService.usuario?.token
+        authorization:'Bearer '+localStorage.getItem("authToken")
       },
     })
     if(res.status !== 200) return;
@@ -41,7 +41,6 @@ export class DataCocherasService {
     if(res.status !== 200) return;
     const resJson: Estacionamiento[] = await res.json();
     this.estacionamientos = resJson;
-    console.log(this.estacionamientos)
   }
 
   asociarEstacionamientosConCocheras() {
@@ -49,7 +48,6 @@ export class DataCocherasService {
       const estacionamiento = this.estacionamientos.find(e => e.idCochera === cochera.id)
       return {...cochera, estacionamiento}
     });
-    console.log(this.cocheras)
   }
 
   ultimoNumero = this.cocheras[this.cocheras.length-1]?.id || 0;
@@ -61,7 +59,7 @@ export class DataCocherasService {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        authorization:'Bearer '+this.authService.usuario?.token
+        authorization:'Bearer '+localStorage.getItem("authToken")
       },
       body: JSON.stringify(cochera)
     })
@@ -69,6 +67,7 @@ export class DataCocherasService {
       console.log("Error en la creacion de una nueva cochera")
     } else {
       console.log("Creacion de cochera exitosa")
+      this.loadData();
     };
   }
 
@@ -77,7 +76,7 @@ export class DataCocherasService {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
-        authorization:'Bearer '+this.authService.usuario?.token
+        authorization:'Bearer '+localStorage.getItem("authToken")
       }
     })
     if (res.status !== 200) {
@@ -120,7 +119,7 @@ export class DataCocherasService {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
-        authorization:'Bearer '+this.authService.usuario?.token
+        authorization:'Bearer '+localStorage.getItem("authToken")
       },
       body: JSON.stringify(body)
     })
@@ -128,7 +127,6 @@ export class DataCocherasService {
       console.log("Error en el cerrado del estacionamiento")
     } else {
       console.log("Cerrado del estacionamiento exitoso")
-      console.log(res)
       this.loadData();
     };    
   }

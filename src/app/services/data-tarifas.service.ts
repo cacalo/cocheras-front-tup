@@ -16,13 +16,12 @@ export class DataTarifasService {
   async getTarifas(){
     const res = await fetch('http://localhost:4000/tarifas',{
       headers: {
-        authorization:'Bearer '+this.authService.usuario?.token
+        authorization:'Bearer '+localStorage.getItem("authToken")
       },
     })
     if(res.status !== 200) {
       console.log("Error")
     } else {
-      console.log(res)
       this.tarifas = await res.json();
     }
   }

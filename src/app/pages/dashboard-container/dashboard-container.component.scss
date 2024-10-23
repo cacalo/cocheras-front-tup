@@ -4,3 +4,90 @@
     color: colors.$color-primario;
     font-weight: bold;
 }
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: white;
+    border-bottom: 2px solid blue;
+  
+    h1 {
+      color: #0044cc;
+      font-size: 32px;
+      font-weight: bold;
+      margin: 0;
+    }
+  
+    nav {
+      display: flex;
+      align-items: center;
+      position: relative;
+  
+      a {
+        color: black;
+        font-size: 16px;
+        text-decoration: none;
+        margin-right: 20px;
+        transition: color 0.3s ease;
+  
+        &:last-child {
+          margin-right: 0;
+        }
+  
+        &.link-activo {
+          font-weight: bold;
+          color: blue;
+        }
+  
+        &:hover {
+          color: blue;
+        }
+      }
+  
+      .usuario {
+        position: relative;
+  
+        a {
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+          margin-right: 0;
+  
+          &::after {
+            font-size: 12px;
+            margin-left: 5px;
+          }
+        }
+  
+        .dropdown {
+          display: none;
+          position: absolute;
+          right: 0;
+          top: 100%;
+          background-color: white;
+          border: 1px solid #ccc;
+          padding: 5px;
+          z-index: 10;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  
+          a {
+            display: block;
+            padding: 5px 10px;
+            white-space: nowrap;
+            color: black;
+            text-decoration: none;
+  
+            &:hover {
+              background-color: #f0f0f0;
+            }
+          }
+        }
+  
+        &:hover .dropdown {
+          display: block;
+        }
+      }
+    }
+}

@@ -1,14 +1,20 @@
 <main class="flex-column-center">
     <table>
         <thead>
-            <td>Nº</td>
+            <td>Cochera</td>
+            <td>Patente</td>
             <td>Fecha</td>
             <td>Cobrado</td>
         </thead>
         <tbody>
             @for (transaccion of this.dataEstacionamientoService.ultimasTransacciones; track $index) {
                 <tr>
-                    <td> {{ $index + 1 }} </td>
+                    <td>
+                        {{ transaccion.idCochera }}
+                    </td>
+                    <td>
+                        {{ transaccion.patente }}
+                    </td>
                     <td>
                         @if (transaccion.horaIngreso) {
                             {{ transaccion.horaEgreso | date:'dd/MM/yyyy' }}
