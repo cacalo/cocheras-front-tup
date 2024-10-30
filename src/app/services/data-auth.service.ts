@@ -64,7 +64,7 @@ export class DataAuthService {
   }
 
   async register(registerData: Register) {
-    const res = await fetch('http://localhost:4000/register', {
+    const res = await fetch(environment.API_URL+'register', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

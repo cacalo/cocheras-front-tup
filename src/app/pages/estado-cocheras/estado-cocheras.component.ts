@@ -102,7 +102,7 @@ export class EstadoCocherasComponent {
   }
 
   abrirEstacionamiento(idCochera: number) {
-    const idUsuarioIngreso = "ADMIN"
+    const idUsuarioIngreso = 1;
     Swal.fire({
       title: "Abrir Cochera",
       html: `<input type="text" id="patente" class="swal2-input" placeholder="Ingrese patente">`,
@@ -182,7 +182,7 @@ export class EstadoCocherasComponent {
             
             if (cobrarButton) {
                 cobrarButton.addEventListener('click', async () => {
-                    const idUsuarioEgreso = "ADMIN";
+                    const idUsuarioEgreso = 1;
                     await this.dataCocherasService.cerrarEstacionamiento(patente, idUsuarioEgreso);
                     Swal.close();
                 });

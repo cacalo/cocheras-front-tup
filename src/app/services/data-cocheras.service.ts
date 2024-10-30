@@ -23,7 +23,7 @@ export class DataCocherasService {
   }
 
   async getCocheras(){
-    const res = await fetch('http://localhost:4000/cocheras',{
+    const res = await fetch(environment.API_URL+'cocheras',{
       headers: {
         authorization:'Bearer '+localStorage.getItem("authToken")
       },
@@ -34,7 +34,7 @@ export class DataCocherasService {
   }
 
   async getEstacionamientos(){
-    const res = await fetch('http://localhost:4000/estacionamientos',{
+    const res = await fetch(environment.API_URL+'estacionamientos',{
       headers: {
         authorization:'Bearer '+ localStorage.getItem("authToken")
       },
@@ -120,7 +120,7 @@ export class DataCocherasService {
     };
   }
 
-  async abrirEstacionamiento(patente: string, idUsuarioIngreso: string, idCochera: number) {
+  async abrirEstacionamiento(patente: string, idUsuarioIngreso: number, idCochera: number) {
     const body = {patente, idUsuarioIngreso, idCochera};
     const res = await fetch(environment.API_URL+'estacionamientos/abrir',{
       method: 'POST',
@@ -138,7 +138,7 @@ export class DataCocherasService {
     };
   }  
 
-  async cerrarEstacionamiento(patente: string, idUsuarioEgreso: string) {
+  async cerrarEstacionamiento(patente: string, idUsuarioEgreso: number) {
     const body = {patente, idUsuarioEgreso};
     const res = await fetch(environment.API_URL+'estacionamientos/cerrar',{
       method: 'PATCH',
